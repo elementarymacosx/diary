@@ -2,6 +2,9 @@
 
 Flutter Diary Application
 
+>flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons.yaml
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

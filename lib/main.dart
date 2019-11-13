@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,6 +22,61 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+
+  setState(DateTime date)
+  {
+
+  }
+  Widget widget()
+  {
+    return Container
+    (
+      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      child: CalendarCarousel<Event>
+      (
+        onDayPressed: (DateTime date, List<Event> events)
+        {
+          this.setState(() => _currentDate = date);
+        },
+        weekendTextStyle: TextStyle
+        (
+          color: Colors.red,
+        ),
+        thisMonthDayBorderColor: Colors.grey,
+
+        customDayBuilder:
+        (
+          bool isSelectable,
+          int index,
+            bool isSelectedDay,
+            bool isToday,
+            bool isPrevMonthDay,
+            TextStyle textStyle,
+            bool isNextMonthDay,
+            bool isThisMonthDay,
+            DateTime day,
+        )
+        {
+          if(day.day ==15)
+            {
+              return Center
+                (
+                child: Icon(Icons.local_airport),
+              );
+            }
+          else
+          {
+            return null;
+          }
+        },
+        weekFormat: false,
+        markedDatesMap: _markedDateMap,
+        height: 420.0,
+        selectedDateTime: _currentDate,
+        daysHaveCircularBorder: false,
+      )
     );
   }
 }
