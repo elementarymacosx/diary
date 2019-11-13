@@ -4,6 +4,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(new MyApp());
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget
       (
         primarySwatch: Colors.purple,
       ),
-      home: new MyHomePage(title: 'MyDiary'),
+      home: new MyHomePage(title: 'MyDiary: '),
     );
   }
 }
@@ -45,10 +46,36 @@ class MyHomePage extends StatefulWidget
 
 class _MyHomePageState extends State<MyHomePage>
 {
-  DateTime _currentDate = DateTime(2019, 2, 3);
-  DateTime _currentDate2 = DateTime(2019, 2, 3);
+  DateTime _currentDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime _currentDate2 = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+  var appBarTitleText;
+
+  void getRealTime()
+  {
+    appBarTitleText = new Text(new DateFormat("dd-MM-yyyy hh:mm:ss").format(DateTime.now()));
+    setState(()
+    {
+      appBarTitleText = Text(new DateFormat("dd-MM-yyyy hh:mm:ss").format(DateTime.now()));
+    });
+  }
 
   String _currentMonth = '';
+
+  void _showToast()
+  {
+    Fluttertoast.showToast
+    (
+      msg: 'Create an event',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+//Fluttertoast.cancel();
 
   static Widget _eventIcon = new Container
   (
@@ -69,11 +96,11 @@ class _MyHomePageState extends State<MyHomePage>
   (
     events:
     {
-      new DateTime(2019, 2, 10):
+      new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 1):
           [
             new Event
             (
-              date: new DateTime(2019, 2, 10),
+              date: new DateTime(2019, 11, 14),
               title: 'Event 1',
               icon: _eventIcon,
               dot: Container
@@ -85,14 +112,14 @@ class _MyHomePageState extends State<MyHomePage>
               ),
             ),
             new Event
-            (
-              date: new DateTime(2019, 2, 10),
+              (
+              date: new DateTime(2019, 11, 16),
               title: 'Event 2',
               icon: _eventIcon,
             ),
             new Event
-            (
-              date: new DateTime(2019, 2, 10),
+              (
+              date: new DateTime(2019, 11, 16),
               title: 'Event 3',
               icon: _eventIcon,
 
@@ -173,6 +200,7 @@ class _MyHomePageState extends State<MyHomePage>
       )
     ]);
     super.initState();
+    getRealTime();
   }
 
   @override
@@ -334,7 +362,8 @@ class _MyHomePageState extends State<MyHomePage>
       (
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title),
+        title: appBarTitleText,
+        //title: new Text(widget.title),
       ),
       body: SingleChildScrollView
       (
@@ -432,7 +461,10 @@ class _MyHomePageState extends State<MyHomePage>
 
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+
+      floatingActionButton: FloatingActionButton
+      (
+        onPressed: _showToast,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
