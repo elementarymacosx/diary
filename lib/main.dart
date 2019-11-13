@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage>
       timeInSecForIos: 1,
       backgroundColor: Colors.red,
       textColor: Colors.white,
-      fontSize: 16.0,
+      fontSize: 10.0,
     );
   }
 //Fluttertoast.cancel();
@@ -135,10 +135,10 @@ class _MyHomePageState extends State<MyHomePage>
   {
     _markedDateMap.add
     (
-      new DateTime(2019, 2, 25),
+      new DateTime(2019, 11, 2),
       new Event
       (
-        date: new DateTime(2019, 2, 25),
+        date: new DateTime(2019, 11, 2),
         title: 'Event 5',
         icon: _eventIcon,
       )
@@ -146,55 +146,55 @@ class _MyHomePageState extends State<MyHomePage>
 
     _markedDateMap.add
     (
-      new DateTime(2019, 2, 10),
+      new DateTime(2019, 11, 3),
       new Event
       (
-        date: new DateTime(2019, 2, 10),
+        date: new DateTime(2019, 11, 3),
         title: 'Event 4',
         icon: _eventIcon,
       )
     );
     
-    _markedDateMap.addAll(new DateTime(2019, 2, 11),
+    _markedDateMap.addAll(new DateTime(2019, 11, 1),
     [
       new Event
       (
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2019, 11, 1),
         title: 'Event 1',
         icon: _eventIcon,
       ),
 
       new Event
       (
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2019, 11, 1),
         title: 'Event 2',
         icon: _eventIcon,
       ),
 
       new Event
       (
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2019, 11, 1),
         title: 'Event 3',
         icon: _eventIcon,
       ),
 
       new Event
       (
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2019, 11, 1),
         title: 'Event 4',
         icon: _eventIcon,
       ),
 
       new Event
       (
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2019, 11, 1),
         title: 'Event 23',
         icon: _eventIcon,
       ),
 
       new Event
       (
-        date: new DateTime(2019, 2, 11),
+        date: new DateTime(2019, 11, 1),
         title: 'Event 123',
         icon: _eventIcon,
       )
@@ -219,6 +219,16 @@ class _MyHomePageState extends State<MyHomePage>
       {
         this.setState(()=> _currentDate = date);
         events.forEach((event) => print(event.title));
+        Fluttertoast.showToast
+        (
+          msg: date.year.toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 16,
+        );
       },
       weekendTextStyle: TextStyle
       (
@@ -227,9 +237,9 @@ class _MyHomePageState extends State<MyHomePage>
 
       thisMonthDayBorderColor: Colors.grey,
 
-      headerText: 'Custom Header',
+      headerText: 'My Diary',
 
-      weekFormat: true,
+      weekFormat: false,
 
       markedDatesMap: _markedDateMap,
 
