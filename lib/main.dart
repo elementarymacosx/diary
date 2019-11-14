@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage>
     });
   }
 
-  String _currentMonth = '';
+  String _currentMonth = DateFormat.yMMM().format(DateTime.now());
 
   void _showToast()
   {
@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage>
     }
   );
 
-  CalendarCarousel _calendarCarousel, _calendarCarouselNoHeader;
+  CalendarCarousel _calendarCarousel;
 
   @override
   void initState()
@@ -217,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage>
     (
       onDayPressed: (DateTime date, List<Event> events)
       {
-        this.setState(()=> _currentDate = date);
+        this.setState(()=> _currentDate2 = date);
         events.forEach((event) => print(event.title));
         Fluttertoast.showToast
         (
@@ -243,11 +243,15 @@ class _MyHomePageState extends State<MyHomePage>
 
       markedDatesMap: _markedDateMap,
 
-      height: 200.0,
+      showOnlyCurrentMonthDate: false,
+
+      height: 420.0,
 
       selectedDateTime: _currentDate2,
 
       showIconBehindDayText: true,
+
+      //daysHaveCircularBorder: true,
 
       customGridViewPhysics: NeverScrollableScrollPhysics(),
 
@@ -257,12 +261,13 @@ class _MyHomePageState extends State<MyHomePage>
 
       selectedDayTextStyle: TextStyle
       (
-        color: Colors.yellow,
+        color: Colors.yellowAccent,
+        fontSize: 10.0,
       ),
 
       todayTextStyle: TextStyle
       (
-        color: Colors.blue,
+        color: Colors.white,
       ),
 
       markedDateIconBuilder: (event)
@@ -274,70 +279,11 @@ class _MyHomePageState extends State<MyHomePage>
 
       maxSelectedDate: _currentDate.add(Duration(days: 360)),
 
-      todayButtonColor: Colors.transparent,
+      todayButtonColor: Colors.blue,
 
       todayBorderColor: Colors.green,
 
       markedDateMoreShowTotal: false,
-
-    );
-
-    _calendarCarouselNoHeader = CalendarCarousel<Event>
-    (
-      todayBorderColor: Colors.green,
-      onDayPressed: (DateTime date, List<Event> events)
-      {
-        this.setState(() => _currentDate2 = date);
-        events.forEach((event) => print(event.title));
-      },
-      daysHaveCircularBorder: true,
-      showOnlyCurrentMonthDate: false,
-      weekendTextStyle: TextStyle
-      (
-        color: Colors.red,
-      ),
-
-      thisMonthDayBorderColor: Colors.grey,
-      weekFormat: false,
-
-      markedDatesMap: _markedDateMap,
-
-      height: 420.0,
-
-      selectedDateTime: _currentDate2,
-
-      customGridViewPhysics: NeverScrollableScrollPhysics(),
-
-      markedDateCustomShapeBorder: CircleBorder
-      (
-        side: BorderSide
-        (
-          color: Colors.yellow,
-        )
-      ),
-
-      markedDateCustomTextStyle: TextStyle
-      (
-        fontSize: 18,
-        color: Colors.blue,
-      ),
-
-      showHeader: false,
-
-      todayTextStyle: TextStyle
-      (
-        color: Colors.blue,
-      ),
-
-      todayButtonColor: Colors.yellow,
-
-      selectedDayTextStyle: TextStyle
-      (
-        color: Colors.yellow,
-      ),
-
-      minSelectedDate: _currentDate.subtract(Duration(days: 360)),
-      maxSelectedDate: _currentDate.add(Duration(days: 360)),
 
       prevDaysTextStyle: TextStyle
       (
@@ -346,7 +292,7 @@ class _MyHomePageState extends State<MyHomePage>
       ),
 
       inactiveDaysTextStyle: TextStyle
-      (
+        (
         color: Colors.tealAccent,
         fontSize: 16,
       ),
@@ -360,11 +306,8 @@ class _MyHomePageState extends State<MyHomePage>
       {
         print('Long pressed date $date');
       },
-      );
 
-
-
-
+    );
 
     return new Scaffold
       (
@@ -439,8 +382,8 @@ class _MyHomePageState extends State<MyHomePage>
                     {
                       setState(()
                       {
-                        _currentDate2 = _currentDate2.subtract(Duration(days: 30));
-                        _currentMonth = DateFormat.yMMM().format(_currentDate2);
+                        //_currentDate2 = _currentDate2.subtract(Duration(days: 30));
+                        //_currentMonth = DateFormat.yMMM().format(_currentDate2);
                       });
                     },
                   ),
@@ -452,20 +395,14 @@ class _MyHomePageState extends State<MyHomePage>
                     {
                       setState(()
                       {
-                        _currentDate2 = _currentDate2.add(Duration(days: 30));
-                        _currentMonth = DateFormat.yMMM().format(_currentDate2);
+                        //_currentDate2 = _currentDate2.add(Duration(days: 30));
+                        //_currentMonth = DateFormat.yMMM().format(_currentDate2);
                       });
                     },
                   )
                 ],
               ),
             ),
-
-            Container
-            (
-              margin: EdgeInsets.symmetric(horizontal: 16.0),
-              child: _calendarCarouselNoHeader,
-            )
 
           ]
 
