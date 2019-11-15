@@ -4,8 +4,10 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
+import 'package:flutter_diary/setting.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() => runApp(new MyApp());
 
@@ -51,6 +53,24 @@ class _MyHomePageState extends State<MyHomePage>
   DateTime _currentDate2 = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   var appBarTitleText;
+
+  void _checkPermissions() async
+  {
+    Map<PermissionGroup, PermissionStatus> permissions = await PermissionHandler().requestPermissions([PermissionGroup.location, PermissionGroup.storage]);
+    bool isGranted = true;
+    permissions.forEach((permission, status)
+    {
+      if(status != PermissionStatus.granted)
+        {
+          isGranted = false;
+        }
+    });
+    while(!isGranted)
+      {
+        _checkPermissions();
+      }
+  }
+
 
   void getRealTime()
   {
@@ -201,6 +221,7 @@ class _MyHomePageState extends State<MyHomePage>
       )
     ]);
     super.initState();
+    _checkPermissions();
     getRealTime();
   }
 
@@ -318,6 +339,15 @@ class _MyHomePageState extends State<MyHomePage>
         // the App.build method, and use it to set our appbar title.
         title: appBarTitleText,
         //title: new Text(widget.title),
+        actions: <Widget>
+        [
+          IconButton
+          (
+            icon: Icon(Icons.settings),
+            onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => Setting())),
+
+          )
+        ],
       ),
       body: SingleChildScrollView
       (
