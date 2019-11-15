@@ -8,6 +8,7 @@ import 'package:flutter_diary/setting.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_diary/route_form.dart';
 
 void main() => runApp(new MyApp());
 
@@ -369,11 +370,12 @@ class _MyHomePageState extends State<MyHomePage>
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>
           [
             //Custom Icon
+            Image.asset("assets/images/tharaphy-soe.jpg"),
             Container
             (
               margin: EdgeInsets.symmetric(horizontal: 16.0),
@@ -433,6 +435,40 @@ class _MyHomePageState extends State<MyHomePage>
                   )
                 ],
               ),
+            ),
+
+            Container
+            (
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+              child: FlatButton
+              (
+                  child: Text("Diary"),
+                  color: Colors.purpleAccent,
+                  textColor: Colors.white,
+                  onPressed: ()
+                  {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RouteFormWidget(title: widget.title, activityType: "Diary")));
+                  },
+              )
+
+            ),
+
+            Container
+            (
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+              child: FlatButton
+              (
+                child: Text("Note"),
+                color: Colors.purpleAccent,
+                textColor: Colors.white,
+                onPressed: ()
+                {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RouteFormWidget(title: widget.title, activityType: "Note")));
+                },
+              ),
+
             ),
 
           ]
